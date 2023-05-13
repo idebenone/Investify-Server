@@ -1,10 +1,13 @@
 package com.example.weinv.entity;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,4 +54,7 @@ public class Company {
 	
 	@Column(name="media_link3")
 	private String media_link3;
+	
+	@OneToMany(mappedBy="company")
+	private Set<Pitch> pitch;
 }

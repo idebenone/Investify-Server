@@ -1,6 +1,7 @@
 package com.example.weinv.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -23,30 +25,28 @@ public class Campaign {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="camp_id")
 	private int camp_id;
 	
-	@Column(name="pitch_id", insertable = false, updatable = false)
 	private int pitch_id;
 	
-	@Column(name="start_date")
 	private Date start_date;
 	
-	@Column(name="end_date")
 	private Date end_date;
 	
-	@Column(name="min_raise")
 	private long min_raise;
 	
-	@Column(name="max_raise")
 	private long max_raise;
 	
-	@Column(name="is_active")
+	private long target_raise;
+	
 	private int is_active;
 	
 	@OneToOne
-	@JoinColumn(name = "pitch_id")
+	@JoinColumn(name = "pitch_id", insertable = false, updatable = false)
 	private Pitch pitch;
+	
+	@OneToMany(mappedBy="campaign")
+	private Set<Investment> investment;
 	
 	
 }

@@ -50,7 +50,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests()
 				.requestMatchers("/api/auth/**").permitAll()
 				.and()
-				.authorizeHttpRequests().requestMatchers("/api/user/**")
+				.authorizeHttpRequests().requestMatchers("/api/user/**","/api/cmp/**")
 //				.authenticated().and().formLogin().and().build();
 				.authenticated().and()
 				.sessionManagement()

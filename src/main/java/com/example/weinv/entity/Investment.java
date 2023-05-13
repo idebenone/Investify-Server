@@ -1,6 +1,9 @@
 package com.example.weinv.entity;
 
-import jakarta.persistence.CascadeType;
+import java.util.Date;
+
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,28 +21,30 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="Pitch")
-public class Pitch {
+@Table(name="Investment")
+public class Investment {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int pitch_id;
+	@Column(name="id")
+	private int id;
 	
-	private String  pitch_title;
+	@Column(name="user_id")
+	private int user_id;
 	
-	private int cmp_id;
+	@Column(name="trans_id")
+	private long trans_id;
 	
-	private String deck;
+	@Column(name="camp_id")
+	private int camp_id;
 	
-	private String feature_img;
+	@Column(name="amount")
+	private float amount;
 	
-	private String feature_vid;
+	@Column(name="inv_date")
+	private Date inv_date;
 	
-    @OneToOne(mappedBy = "pitch", cascade = CascadeType.ALL)
-    private Campaign campaign;
-    
-	@ManyToOne(targetEntity = Company.class,fetch = FetchType.EAGER)
-	@JoinColumn(name="cmp_id",insertable = false,updatable=false)
-	private Company company;
-	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="camp_id",insertable = false,updatable=false)
+	private Campaign campaign;
 }

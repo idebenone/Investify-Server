@@ -9,5 +9,5 @@ public class WeinvApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WeinvApplication.class, args);
 	}
-
-}
+	
+	}

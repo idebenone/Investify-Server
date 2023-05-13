@@ -1,50 +1,37 @@
 package com.example.weinv.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
 @Entity
-@Table(name="User")
-public class User {
-	
+@Table(name="Transactions")
+public class Transactions {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	private String full_name;
+	private int user_id;
 	
-	private String email;
+	private int trans_id;
 
-	private String password;
+	private int camp_id;
 	
-	private long phone;
+	private float amount;
 	
-	private String bio;
+	private Date init_time;
 	
-	private String city;
+	private Date update_time;
 	
-	private String state;
-	
-	private String zip;
-	
-	@Builder.Default
-	private String role = "User";
-	
-	@Builder.Default
-	private int verified = 0;
-	
-	@Builder.Default
-	private int is_active = 0;
-	
+	private int is_confirmed;
 }
