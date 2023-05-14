@@ -1,9 +1,8 @@
 package com.example.weinv.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.Set;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,9 +28,9 @@ public class Campaign {
 	
 	private int pitch_id;
 	
-	private Date start_date;
+	private Timestamp start_date;
 	
-	private Date end_date;
+	private Timestamp end_date;
 	
 	private long min_raise;
 	

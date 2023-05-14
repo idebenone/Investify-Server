@@ -1,10 +1,8 @@
 package com.example.weinv.entity;
 
-import java.util.Date;
 
+import java.sql.Timestamp;
 
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,23 +24,17 @@ public class Investment {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
 	private int id;
 	
-	@Column(name="user_id")
 	private int user_id;
+
+	private String trans_id;
 	
-	@Column(name="trans_id")
-	private long trans_id;
-	
-	@Column(name="camp_id")
 	private int camp_id;
 	
-	@Column(name="amount")
 	private float amount;
 	
-	@Column(name="inv_date")
-	private Date inv_date;
+	private Timestamp inv_date;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="camp_id",insertable = false,updatable=false)

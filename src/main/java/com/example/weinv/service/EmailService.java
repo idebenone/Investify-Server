@@ -17,7 +17,7 @@ public class EmailService {
     private final TransactionalEmailsApi emailsApi;
     
     public EmailService() {
-    	String apiKey = "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";
+    	String apiKey = "";
     	
     	apiClient = Configuration.getDefaultApiClient();
     	apiClient.setApiKey(apiKey);

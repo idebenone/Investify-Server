@@ -16,13 +16,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.weinv.dto.AuthRequest;
+import com.example.weinv.entity.Investment;
 import com.example.weinv.entity.Otp;
 import com.example.weinv.entity.User;
+import com.example.weinv.service.InvestmentService;
 import com.example.weinv.service.JwtService;
 import com.example.weinv.service.UserService;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("api")
@@ -34,7 +37,10 @@ public class UserController {
 	
 	@Autowired
 	private JwtService jwtService;
-		
+	
+	@Autowired
+	private InvestmentService investmentService;
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
@@ -77,17 +83,26 @@ public class UserController {
 	 	Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
 	 	if(authentication.isAuthenticated()) {
 	 		String token = jwtService.genToken(authRequest.getEmail());
+	 		String email = authRequest.getEmail();
 	 		Map<String, Object> response = new HashMap<>();
 	 		response.put("token", token);
+	 		response.put("email", email);
 	 		return ResponseEntity.ok(response);
 	 	}else {
 	 		throw new UsernameNotFoundException("Invalid User Request");
 	 	}
 	}
 	
-	@PostMapping("user/{id}")
-	public User getUserById(@PathVariable int id) {
-		return userServ.getUserByid(id);
+	@GetMapping("user/{email}")
+	public User getUserByEmail(@PathVariable String email) {
+		User user = userServ.getUserByEmail(email);
+		user.setPassword("");
+		return user;
+	}
+	
+	@GetMapping("user/inv/{id}")
+	public List<Investment> getInvByUserId(@PathVariable int user_id){
+		return investmentService.getInvByUserId(user_id);
 	}
 	
 }

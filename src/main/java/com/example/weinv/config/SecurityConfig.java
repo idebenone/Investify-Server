@@ -47,10 +47,11 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf()
 				.disable()
+				.cors().and()
 				.authorizeHttpRequests()
 				.requestMatchers("/api/auth/**").permitAll()
 				.and()
-				.authorizeHttpRequests().requestMatchers("/api/user/**","/api/cmp/**")
+				.authorizeHttpRequests().requestMatchers("/api/user/**","/api/comp/**","/api/payment/**")
 //				.authenticated().and().formLogin().and().build();
 				.authenticated().and()
 				.sessionManagement()

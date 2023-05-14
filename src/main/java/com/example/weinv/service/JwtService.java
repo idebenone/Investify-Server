@@ -53,6 +53,7 @@ public class JwtService {
     
 	public String genToken(String email) {
 		Map<String, Object> claims = new HashMap<>();
+		claims.put("email", email);
 		return createToken(claims,email);	
 	}
 
@@ -61,7 +62,7 @@ public class JwtService {
 				.setClaims(claims)
 				.setSubject(email)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 1000*60*30))
+				.setExpiration(new Date(System.currentTimeMillis() + 1000*60*60*24))
 				.signWith(getSignKey(),SignatureAlgorithm.HS256)
 				.compact();
 	}

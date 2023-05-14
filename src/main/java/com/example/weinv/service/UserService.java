@@ -107,8 +107,8 @@ public class UserService {
 		return random.nextInt(max_value - min_value + 1) + min_value;
 	}
 	
-	public User getUserByid(int id) {
-		return userRepo.findById(id).get();
+	public User getUserByEmail(String email) {
+		return userRepo.findByEmail(email).get();
 	}
 	
 }
