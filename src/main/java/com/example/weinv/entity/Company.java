@@ -2,9 +2,10 @@ package com.example.weinv.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -20,9 +21,8 @@ import lombok.NoArgsConstructor;
 public class Company {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cmp_id;
-
+	
 	private String cmp_name;
 	
 	private String prf_img;
@@ -43,6 +43,7 @@ public class Company {
 
 	private String media_link3;
 	
-	@OneToMany(mappedBy="company")
+	@OneToMany(mappedBy="company", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private Set<Pitch> pitch;
 }

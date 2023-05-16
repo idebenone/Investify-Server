@@ -1,6 +1,7 @@
 package com.example.weinv.entity;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +27,8 @@ public class Pitch {
 	
 	private String  pitch_title;
 	
+	private String pitch_desc;
+
 	private int cmp_id;
 	
 	private String deck;
@@ -34,12 +36,10 @@ public class Pitch {
 	private String feature_img;
 	
 	private String feature_vid;
-	
-    @OneToOne(mappedBy = "pitch", cascade = CascadeType.ALL)
-    private Campaign campaign;
     
 	@ManyToOne(targetEntity = Company.class,fetch = FetchType.EAGER)
-	@JoinColumn(name="cmp_id",insertable = false,updatable=false)
+	@JoinColumn(name="cmp_id",insertable = false, updatable = false)
+	@JsonBackReference
 	private Company company;
 	
 }

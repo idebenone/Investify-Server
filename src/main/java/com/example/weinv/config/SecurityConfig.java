@@ -49,9 +49,9 @@ public class SecurityConfig {
 				.disable()
 				.cors().and()
 				.authorizeHttpRequests()
-				.requestMatchers("/api/auth/**").permitAll()
+				.requestMatchers("/api/auth/**","/content/**").permitAll()
 				.and()
-				.authorizeHttpRequests().requestMatchers("/api/user/**","/api/comp/**","/api/payment/**")
+				.authorizeHttpRequests().requestMatchers("/api/user/**","/api/comp/**","/api/payment/**","/images/**")
 //				.authenticated().and().formLogin().and().build();
 				.authenticated().and()
 				.sessionManagement()

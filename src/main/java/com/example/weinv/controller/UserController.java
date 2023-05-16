@@ -67,8 +67,10 @@ public class UserController {
 		if(res) {
 		 	Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
 		 	if(authentication.isAuthenticated()) {
-		 		String token = jwtService.genToken(authRequest.getEmail());		
+		 		String token = jwtService.genToken(authRequest.getEmail());
+		 		String email = authRequest.getEmail();
 		 		response.put("token", token);
+		 		response.put("email", email);
 		 		return ResponseEntity.ok(response);
 		 	}else {
 		 		throw new UsernameNotFoundException("Invalid User Request");

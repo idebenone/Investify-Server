@@ -35,8 +35,8 @@ public class Investment {
 	private float amount;
 	
 	private Timestamp inv_date;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="camp_id",insertable = false,updatable=false)
-	private Campaign campaign;
+//	
+//	@ManyToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name="camp_id",insertable = false,updatable=false)
+//	private Campaign campaign;
 }

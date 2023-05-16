@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.weinv.dto.CompanyPitchCampaign;
 import com.example.weinv.entity.Campaign;
 import com.example.weinv.entity.Investment;
 import com.example.weinv.service.CampaignService;
@@ -29,8 +30,13 @@ public class CampaignController {
 	private InvestmentService investmentService;
 
 	@GetMapping("campaign")
-	public List<Campaign> getAllCamps(){
-		return campaignService.getAllCampaigns();
+	public List<Object[]> publicCamps(){
+		return campaignService.getAllPublicCamps();
+	}
+	
+	@GetMapping("campaign/cmp={id}")
+	public List<Campaign> getAllCampsByCmpId(@PathVariable int id){
+		return campaignService.getAllCampaignsByCmpId(id);
 	}
 	
 	@GetMapping("campaign/{id}")

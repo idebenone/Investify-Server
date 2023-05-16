@@ -1,6 +1,6 @@
 package com.example.weinv.entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -26,11 +26,13 @@ public class Campaign {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int camp_id;
 	
+	private String camp_title;
+	
 	private int pitch_id;
 	
-	private Timestamp start_date;
+	private LocalDate start_date;
 	
-	private Timestamp end_date;
+	private LocalDate end_date;
 	
 	private long min_raise;
 	
@@ -39,13 +41,9 @@ public class Campaign {
 	private long target_raise;
 	
 	private int is_active;
-	
-	@OneToOne
-	@JoinColumn(name = "pitch_id", insertable = false, updatable = false)
-	private Pitch pitch;
-	
-	@OneToMany(mappedBy="campaign")
-	private Set<Investment> investment;
+		
+//	@OneToMany(mappedBy="campaign")
+//	private Set<Investment> investment;
 	
 	
 }

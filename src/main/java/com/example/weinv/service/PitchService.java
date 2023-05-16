@@ -17,8 +17,8 @@ public class PitchService {
 	private PitchRepo pitchRepo;
 	
 	@Transactional
-	public List<Pitch> getAllPitches(){
-		return pitchRepo.findAll();
+	public List<Pitch> getAllPitchesByCmpId(int id){
+		return pitchRepo.findAllByCmpId(id);
 	}
 	
 	@Transactional
@@ -33,6 +33,12 @@ public class PitchService {
 	
 	@Transactional
 	public void updatePitch(Pitch p) {
-		pitchRepo.save(p);
+		pitchRepo.updatePitch(p.getPitch_title(),p.getPitch_desc(),p.getFeature_img(),p.getFeature_vid(),p.getDeck(),p.getPitch_id());
 	}
+	
+	@Transactional
+	public void deletePitch(int id) {
+		pitchRepo.deleteById(id);
+	}
+	
 }
