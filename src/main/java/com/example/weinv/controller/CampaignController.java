@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.weinv.dto.CompanyPitchCampaign;
 import com.example.weinv.entity.Campaign;
 import com.example.weinv.entity.Investment;
 import com.example.weinv.service.CampaignService;
