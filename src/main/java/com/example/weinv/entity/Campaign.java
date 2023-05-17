@@ -40,7 +40,7 @@ public class Campaign {
 	
 	private long target_raise;
 	
-	private int is_active;
+	private long raised_amt;
 		
 //	@OneToMany(mappedBy="campaign")
 //	private Set<Investment> investment;

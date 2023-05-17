@@ -1,14 +1,9 @@
 package com.example.weinv.entity;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,8 +46,4 @@ public class User {
 	
 	@Builder.Default
 	private int is_active = 0;
-	
-	@OneToMany(mappedBy = "user")
-	private List<Transactions> transactions;
-	
 }

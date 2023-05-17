@@ -8,7 +8,10 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.weinv.entity.Investment;
 import com.example.weinv.entity.Transactions;
+import com.example.weinv.persistence.CampaignRepo;
+import com.example.weinv.persistence.InvestmentRepo;
 import com.example.weinv.persistence.PaymentRepo;
 
 import jakarta.transaction.Transactional;
@@ -18,6 +21,13 @@ public class PaymentService {
 	
 	@Autowired
 	private PaymentRepo  paymentRepo;
+	
+	@Autowired
+	private CampaignRepo campaignRepo;
+	
+	@Autowired 
+	private InvestmentRepo investmentRepo;
+	
 	
 	@Transactional
 	public List<Transactions> getTransByUserId(int id){
@@ -30,7 +40,22 @@ public class PaymentService {
 		trans.setTrans_id(generateUniqueId());
 		trans.setInit_time(Timestamp.valueOf(init));
 		trans.setUpdate_time(Timestamp.valueOf(init));
-		paymentRepo.save(trans);
+		Transactions pay = paymentRepo.save(trans);
+		if(pay != null) {
+			//on success update campaign
+			System.out.println(trans.toString());
+			campaignRepo.updateCampAmt(trans.getAmount(),trans.getCamp_id());
+			
+			//Store data on investment table
+			Investment inv = new Investment();
+			inv.setCamp_id(trans.getCamp_id());
+			inv.setUser_id(trans.getUser_id());
+			inv.setTrans_id(trans.getTrans_id());
+			inv.setAmount(trans.getAmount());
+			inv.setInv_date(trans.getInit_time());
+			investmentRepo.save(inv);
+		}
+	
 	}
 	
 	@Transactional

@@ -17,7 +17,7 @@ public class EmailService {
     private final TransactionalEmailsApi emailsApi;
     
     public EmailService() {
-    	String apiKey = "";
+    	String apiKey = "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";
     	
     	apiClient = Configuration.getDefaultApiClient();
     	apiClient.setApiKey(apiKey);
@@ -38,7 +38,7 @@ public class EmailService {
             emailsApi.sendTransacEmail(smtpEmail);
             System.out.println("Email sent successfully!");
         } catch (Exception e) {
-            System.err.println("Error sending email: " + e.getMessage());
+            e.printStackTrace();
         }
     	
     }

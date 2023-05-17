@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.weinv.dto.AuthRequest;
+import com.example.weinv.dto.InvCamp;
 import com.example.weinv.entity.Investment;
 import com.example.weinv.entity.Otp;
 import com.example.weinv.entity.User;
@@ -50,8 +52,13 @@ public class UserController {
 	}
 	
 	@PostMapping("auth/initiate")
-	public void initReg(@RequestBody String email) { // send email
-		userServ.initiate_registration(email);
+	public boolean initReg(@RequestBody User user) { // send email
+		return userServ.initiate_registration(user.getEmail());
+	}
+	
+	@PostMapping("auth/forget")
+	public boolean forgetPass(@RequestBody User user) {
+		return userServ.forgetPass(user.getEmail());
 	}
 	
 	@PostMapping("auth/verify")
@@ -103,8 +110,14 @@ public class UserController {
 	}
 	
 	@GetMapping("user/inv/{id}")
-	public List<Investment> getInvByUserId(@PathVariable int user_id){
-		return investmentService.getInvByUserId(user_id);
+	public List<InvCamp> getInvByUserId(@PathVariable int id){
+		return investmentService.getInvByUserId(id);
+	}
+	
+	@PutMapping("user")
+	public void updateUser(@RequestBody User user) {
+		userServ.updateUser(user);
+		
 	}
 	
 }

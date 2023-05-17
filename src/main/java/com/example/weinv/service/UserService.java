@@ -34,7 +34,39 @@ public class UserService {
 	private PasswordEncoder passEnc;
 
 	@Transactional
-	public void initiate_registration(String email) {
+	public boolean initiate_registration(String email) {
+		Optional<User> user = userRepo.findByEmail(email);
+		if(user.isEmpty()) {
+			User newUser = new User();
+			newUser.setEmail(email);
+			userRepo.save(newUser);
+			otpTrig(email);
+			return true;
+		}else if(user.get().getEmail() != null && user.get().getIs_active() == 0) {
+			User newUser = new User();
+			newUser.setEmail(email);
+			newUser.setId(user.get().getId());
+			userRepo.save(newUser);
+			otpTrig(email);
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	@Transactional
+	public boolean forgetPass(String email) {
+		Optional<User> user = userRepo.findByEmail(email);
+		if(!user.isEmpty()) {
+			User n_user = user.get();
+			otpTrig(n_user.getEmail());
+			return true;
+		}
+		return false;
+	}
+	
+	@Transactional
+	public void otpTrig(String email) {
 		LocalDateTime init = LocalDateTime.now();
 		LocalDateTime exp =  init.plusMinutes(10);
 		
@@ -45,11 +77,6 @@ public class UserService {
 		new_otp.setInit_time(Timestamp.valueOf(init));
 		new_otp.setExp_time(Timestamp.valueOf(exp));
 		otpRepo.save(new_otp);
-		
-		//USER ENTRY
-		User user = new User();
-		user.setEmail(email);
-		userRepo.save(user);
 		
 		//MAIL NOTIFICATION
 		emailService.sendEmail("weinv@help.com", new_otp.getEmail(), "Verify Yourself", "Your OTP is READY", "<p>Your OTP is "+ Integer.toString(new_otp.getOtp())+"</p>");
@@ -81,14 +108,15 @@ public class UserService {
 			int is_verified = user.getVerified();
 			
 			if(is_verified != 0) {
-				userRepo.updatePassword( email, passEnc.encode(password));
+				userRepo.updatePassword( email,1, passEnc.encode(password));
 				return true;
 			}
+			else {
+				return false;
+			}
 		}else {
-			System.out.println("User is not verfied!");
+			return false;
 		}
-		return false;
-		
 	}
 
 	public boolean isOtpValid(LocalDateTime init , LocalDateTime exp) {
@@ -107,8 +135,14 @@ public class UserService {
 		return random.nextInt(max_value - min_value + 1) + min_value;
 	}
 	
+	@Transactional
 	public User getUserByEmail(String email) {
 		return userRepo.findByEmail(email).get();
+	}
+	
+	@Transactional
+	public void updateUser(User user) {
+		userRepo.updateUser(user.getFull_name(), user.getBio(), user.getPhone(), user.getCity(), user.getState(),user.getZip(),user.getId());;
 	}
 	
 }

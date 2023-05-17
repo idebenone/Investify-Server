@@ -51,7 +51,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests()
 				.requestMatchers("/api/auth/**","/content/**").permitAll()
 				.and()
-				.authorizeHttpRequests().requestMatchers("/api/user/**","/api/comp/**","/api/payment/**","/images/**")
+				.authorizeHttpRequests().requestMatchers("/api/user/**","/api/comp/**","/api/payment/**","/api/bank/**","/images/**")
 //				.authenticated().and().formLogin().and().build();
 				.authenticated().and()
 				.sessionManagement()
